@@ -1,0 +1,19 @@
+{
+  "name": "github_actions_playground",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^15.7.4",
+    "@types/bun": "latest",
+    "@types/figlet": "^1.5.8"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "figlet": "^1.7.0"
+  },
+  "scripts": {
+    "start": "bun run index.ts --hot"
+  }
+}
