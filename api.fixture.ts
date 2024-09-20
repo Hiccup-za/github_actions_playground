@@ -1,12 +1,5 @@
-export const API_BASE_URL = "http://localhost:3000";
-
 export const API_ENDPOINTS = {
-  objects: `${API_BASE_URL}/api/objects`,
-};
-
-export const MOCK_RESPONSES = {
-  emptyArray: [],
-  createdObject: (name: string, id: string) => ({ id, name }),
+  objects: "/api/objects",
 };
 
 // Helper function to generate a mock UUID
