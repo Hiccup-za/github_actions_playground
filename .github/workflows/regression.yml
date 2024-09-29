@@ -11,7 +11,6 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       bun-version: latest
-    # secrets: inherit
 
   print-summary:
     needs: test-and-summary
@@ -20,6 +19,6 @@ jobs:
       - name: 📝 Print Test Summary
         run: |
           echo "Smoke Test Results:"
-          echo "1. Test 1: ${{ needs.test-and-summary.outputs.test_result_4 == 'success' && '✅' || '❌' }}"
-          echo "2. Test 2: ${{ needs.test-and-summary.outputs.test_result_2 == 'success' && '✅' || '❌' }}"
-          echo "3. Test 3: ${{ needs.test-and-summary.outputs.test_result_6 == 'success' && '✅' || '❌' }}"
+          echo "1. E2E test results 1: ${{ needs.test-and-summary.outputs.test_result_1 == 'success' && '✅' || '❌' }}"
+          echo "2. ID test results 2: ${{ needs.test-and-summary.outputs.test_result_2 == 'success' && '✅' || '❌' }}"
+          echo "3. POST test results 3: ${{ needs.test-and-summary.outputs.test_result_3 == 'success' && '✅' || '❌' }}"
