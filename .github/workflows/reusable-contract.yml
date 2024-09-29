@@ -9,13 +9,13 @@ on:
     outputs:
       id_contract_test_result:
         description: "The result of the contract test run"
-        value: ${{ jobs.test.outputs.id_contract_test_result }}
+        value: ${{ jobs.reusable-test.outputs.id_contract_test_result }}
       post_contract_test_result:
         description: "The result of the POST test run"
-        value: ${{ jobs.test.outputs.post_contract_test_result }}
+        value: ${{ jobs.reusable-test.outputs.post_contract_test_result }}
 
 jobs:
-  test:
+  reusable-test:
     runs-on: ubuntu-latest
     outputs:
       id_contract_test_result: ${{ steps.set-result.outputs.id_contract_test_result }}

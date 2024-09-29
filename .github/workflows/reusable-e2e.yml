@@ -9,10 +9,10 @@ on:
     outputs:
       e2e_test_result:
         description: "The result of the E2E test run"
-        value: ${{ jobs.test.outputs.e2e_test_result }}
+        value: ${{ jobs.reusable-test.outputs.e2e_test_result }}
 
 jobs:
-  test:
+  reusable-test:
     runs-on: ubuntu-latest
     outputs:
       e2e_test_result: ${{ steps.set-result.outputs.e2e_test_result }}
