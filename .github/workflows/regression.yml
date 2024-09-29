@@ -16,9 +16,14 @@ jobs:
     needs: test-and-summary
     runs-on: ubuntu-latest
     steps:
-      - name: 📝 Print Test Summary
+      - name: 📝 Print Actual Test Summary
         run: |
           echo "💨 Smoke Test Results:"
           echo "1. E2E : ${{ needs.test-and-summary.outputs.test_result_1 == 'success' && '✅ Passed' || '❌ Failed' }}"
-          echo "2. ID  : ${{ needs.test-and-summary.outputs.test_result_4 == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "2. ID  : ${{ needs.test-and-summary.outputs.test_result_2 == 'success' && '✅ Passed' || '❌ Failed' }}"
           echo "3. POST: ${{ needs.test-and-summary.outputs.test_result_3 == 'success' && '✅ Passed' || '❌ Failed' }}"
+
+      - name: 🚨 Print Failed Test Summary
+        run: |
+          echo "💨 Smoke Test Results:"
+          echo "1. Failed : ${{ needs.test-and-summary.outputs.test_result_4 == 'success' && '✅ Passed' || '❌ Failed' }}"
