@@ -7,23 +7,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-and-summary:
-    uses: ./.github/workflows/reusable.yml
+  e2e-test:
+    uses: ./.github/workflows/reusable-e2e.yml
+    with:
+      bun-version: latest
+
+  contract-tests:
+    uses: ./.github/workflows/reusable-contract.yml
     with:
       bun-version: latest
 
   print-summary:
-    needs: test-and-summary
+    needs: [e2e-test, contract-tests]
     runs-on: ubuntu-latest
     steps:
-      - name: 📝 Print Actual Test Summary
+      - name: 📝 Print Test Summary
         run: |
           echo "💨 Smoke Test Results:"
-          echo "1. E2E : ${{ needs.test-and-summary.outputs.test_result_1 == 'success' && '✅ Passed' || '❌ Failed' }}"
-          echo "2. ID  : ${{ needs.test-and-summary.outputs.test_result_2 == 'success' && '✅ Passed' || '❌ Failed' }}"
-          echo "3. POST: ${{ needs.test-and-summary.outputs.test_result_3 == 'success' && '✅ Passed' || '❌ Failed' }}"
-
-      - name: 🚨 Print Failed Test Summary
-        run: |
-          echo "💨 Smoke Test Results:"
-          echo "1. Failed : ${{ needs.test-and-summary.outputs.test_result_4 == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "1. E2E : ${{ needs.e2e-test.outputs.e2e_test_result == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "2. ID  : ${{ needs.contract-tests.outputs.id_contract_test_result == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "3. POST: ${{ needs.contract-tests.outputs.post_contract_test_result == 'success' && '✅ Passed' || '❌ Failed' }}"

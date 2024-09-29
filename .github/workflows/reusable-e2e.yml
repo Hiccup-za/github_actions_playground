@@ -1,0 +1,39 @@
+name: Run Reusable E2E Tests
+
+on:
+  workflow_call:
+    inputs:
+      bun-version:
+        required: true
+        type: string
+    outputs:
+      e2e_test_result:
+        description: "The result of the E2E test run"
+        value: ${{ jobs.test.outputs.e2e_test_result }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    outputs:
+      e2e_test_result: ${{ steps.set-result.outputs.e2e_test_result }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 👨‍🍳 Setup Bun ${{ inputs.bun-version }}
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ inputs.bun-version }}
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🧪 Run E2E tests
+        id: e2e-test
+        run: bun test e2e.test.ts
+
+      - name: 📤 Set result output
+        id: set-result
+        run: |
+          echo "e2e_test_result=${{ steps.e2e-test.outcome }}" >> $GITHUB_OUTPUT
