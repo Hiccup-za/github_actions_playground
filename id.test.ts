@@ -14,8 +14,7 @@ describe("Non-existent ID tests", () => {
   test("1. GET by ID request", async () => {
     const nonExistentId = generateMockUUID();
     const response = await fetch(`${API_ENDPOINTS.objects}/${nonExistentId}`);
-    // expect(response.status).toBe(404);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(404);
     const data = await response.json();
     expect(data).toEqual({ error: "Object not found" });
   });
@@ -25,8 +24,7 @@ describe("Non-existent ID tests", () => {
     const response = await fetch(`${API_ENDPOINTS.objects}/${nonExistentId}`, {
       method: 'DELETE',
     });
-    // expect(response.status).toBe(404);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(404);
     const data = await response.json();
     expect(data).toEqual({ error: "Object not found" });
   });
