@@ -22,7 +22,7 @@ jobs:
       post_contract_test_result: ${{ steps.set-result.outputs.post_contract_test_result }}
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 👨‍🍳 Setup Bun ${{ inputs.bun-version }}
         uses: oven-sh/setup-bun@v1
