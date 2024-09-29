@@ -1,7 +1,6 @@
 name: Run Reusable Test Workflow
 
 on:
-  workflow_dispatch:
   workflow_call:
     inputs:
       bun-version:
