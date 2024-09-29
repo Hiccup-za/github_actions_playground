@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: 📝 Print Test Summary
         run: |
-          echo "Smoke Test Results:"
-          echo "1. E2E test results 1: ${{ needs.test-and-summary.outputs.test_result_1 == 'success' && '✅' || '❌' }}"
-          echo "2. ID test results 2: ${{ needs.test-and-summary.outputs.test_result_2 == 'success' && '✅' || '❌' }}"
-          echo "3. POST test results 3: ${{ needs.test-and-summary.outputs.test_result_3 == 'success' && '✅' || '❌' }}"
+          echo "💨 Smoke Test Results:"
+          echo "1. E2E : ${{ needs.test-and-summary.outputs.test_result_1 == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "2. ID  : ${{ needs.test-and-summary.outputs.test_result_4 == 'success' && '✅ Passed' || '❌ Failed' }}"
+          echo "3. POST: ${{ needs.test-and-summary.outputs.test_result_3 == 'success' && '✅ Passed' || '❌ Failed' }}"
