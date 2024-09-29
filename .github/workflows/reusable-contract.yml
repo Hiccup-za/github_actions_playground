@@ -1,0 +1,49 @@
+name: Run Reusable Contract Tests
+
+on:
+  workflow_call:
+    inputs:
+      bun-version:
+        required: true
+        type: string
+    outputs:
+      id_contract_test_result:
+        description: "The result of the contract test run"
+        value: ${{ jobs.reusable-test.outputs.id_contract_test_result }}
+      post_contract_test_result:
+        description: "The result of the POST test run"
+        value: ${{ jobs.reusable-test.outputs.post_contract_test_result }}
+
+jobs:
+  reusable-test:
+    runs-on: ubuntu-latest
+    outputs:
+      id_contract_test_result: ${{ steps.set-result.outputs.id_contract_test_result }}
+      post_contract_test_result: ${{ steps.set-result.outputs.post_contract_test_result }}
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 👨‍🍳 Setup Bun ${{ inputs.bun-version }}
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ inputs.bun-version }}
+
+      - name: 📦 Install dependencies
+        run: bun install
+
+      - name: 🧪 Run ID tests
+        id: id-contract-test
+        continue-on-error: true
+        run: bun test id.test.ts
+
+      - name: 🧪 Run POST tests
+        id: post-contract-test
+        continue-on-error: true
+        run: bun test post.test.ts
+
+      - name: 📤 Set result output
+        id: set-result
+        run: |
+          echo "id_contract_test_result=${{ steps.id-contract-test.outcome }}" >> $GITHUB_OUTPUT
+          echo "post_contract_test_result=${{ steps.post-contract-test.outcome }}" >> $GITHUB_OUTPUT
