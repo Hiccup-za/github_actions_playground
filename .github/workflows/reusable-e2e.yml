@@ -31,6 +31,7 @@ jobs:
 
       - name: 🧪 Run E2E tests
         id: e2e-test
+        continue-on-error: true
         run: bun test e2e.test.ts
 
       - name: 📤 Set result output

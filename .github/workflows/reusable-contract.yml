@@ -34,10 +34,12 @@ jobs:
 
       - name: 🧪 Run ID tests
         id: id-contract-test
+        continue-on-error: true
         run: bun test id.test.ts
 
       - name: 🧪 Run POST tests
         id: post-contract-test
+        continue-on-error: true
         run: bun test post.test.ts
 
       - name: 📤 Set result output
